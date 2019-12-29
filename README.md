@@ -1,5 +1,6 @@
-
-
+[![Build Status](https://travis-ci.org/nignanthomas/wayfarer-react.svg?branch=develop)](https://travis-ci.org/nignanthomas/wayfarer-react)
+[![Maintainability](https://api.codeclimate.com/v1/badges/14b0c5f864eb820e1c36/maintainability)](https://codeclimate.com/github/nignanthomas/wayfarer-react/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/14b0c5f864eb820e1c36/test_coverage)](https://codeclimate.com/github/nignanthomas/wayfarer-react/test_coverage)
 
 		██╗    ██╗ █████╗ ██╗   ██╗███████╗ █████╗ ██████╗ ███████╗██████╗
 		██║    ██║██╔══██╗╚██╗ ██╔╝██╔════╝██╔══██╗██╔══██╗██╔════╝██╔══██╗
