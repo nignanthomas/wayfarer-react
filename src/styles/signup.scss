@@ -40,22 +40,23 @@ input:focus{
   outline: none;
   border-color: #9932CC;
 }
-input[type='submit']{
+.form-button{
   color: #ffffff;
   font-size: 20px;
   height: 46px;
   border: none;
   padding-left: 10px;
+  margin-top: 20px;
 
   background-size: 300% 100%;
   transition: all .4s ease-in-out;
   background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a , #FBB03B);
   box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
 }
-input[type='submit']:active{
+.form-button:active{
   transform: translateY(4px);
 }
-input[type='submit']:hover{
+.form-button:hover{
   cursor: pointer;
   background-position: 100% 0;
   transition: all .4s ease-in-out;
