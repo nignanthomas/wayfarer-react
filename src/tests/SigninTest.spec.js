@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Signup } from '../components/Signup';
+import { Signin } from '../components/Signin';
 import thunk from 'redux-thunk';
-import { mapStateToProps } from '../components/Signup';
+import { mapStateToProps } from '../components/Signin';
 import store from '../redux/store';
 
 const mainState = {
@@ -21,31 +21,30 @@ const props = {
       status: '',
     }
   },
-  history: {
-
+  history: {},
+  data: {
+    data: {
+      token: 'sometoken',
+    },
   },
-  signupAction: jest.fn()
+  signinAction: jest.fn()
 }
 
 const setUp = (initialState =  {}) => {
   const wrapper = shallow(
-      <Signup {...props} store={store} />
+      <Signin {...props} store={store} />
   );
     return wrapper;
 } 
 
-describe('Signup Test Suite', () => { 
+describe('Signin Test Suite', () => { 
   it('Should Mount Successfully', () => {
     const component = setUp(mainState); 
     const handleSubmitSpy = jest.spyOn(component.instance(), 'handleSubmit');
     const email = { target: { name: 'email', value: 'johndoe@gmail.com' } };
-    const first_name = { target: { name: 'first_name', value: 'john' } };
-    const last_name = { target: { name: 'last_name', value: 'doe' } };
     const password = { target: { name: 'password', value: 'P@ssW0rD' } };
     
     component.find('[data-test="email"]').simulate('change', email);
-    component.find('[data-test="first_name"]').simulate('change', first_name);
-    component.find('[data-test="last_name"]').simulate('change', last_name);
     component.find('[data-test="password"]').simulate('change', password);
     component.find('[data-test="submitButton"]').simulate('click');
     component.find('form').simulate('submit', {
@@ -54,14 +53,14 @@ describe('Signup Test Suite', () => {
   expect(handleSubmitSpy).toReturn();
   });
 
-  it('Should Simulate Successfull Signup', () => {
+  it('Should Simulate Successfull Signin', () => {
     const component = setUp(mainState); 
     component.setProps({history: {push: jest.fn()}, status: 'success'});
     const { push } = component.instance().props.history;
     expect(push).toHaveBeenCalledWith('/'); 
   }); 
 
-  it('Should Simulate Failed Signup', () => {
+  it('Should Simulate Failed Signin', () => {
     const component = setUp(mainState); 
     component.setProps({history: {push: jest.fn()}, dataError: { data: { message: 'Failed' } }, status: 'error'});
     const { push } = component.instance().props.history;

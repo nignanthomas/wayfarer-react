@@ -9,26 +9,27 @@ import Menu from './global/Menu';
 import '../styles/signup.scss';
 import avatarMan from '../assets/images/avatar-man.png';
 import Footer from './global/Footer';
-import { signupAction } from '../redux/actions/authActions';
+import { signinAction } from '../redux/actions/authActions';
 
-export class Signup extends Component {
+export class Signin extends Component {
   state = {
     isLoading: false,
     email: '',
-    first_name: '',
-    last_name: '',
     password: '',
   };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const {
-      dataError, status, history,
+      dataError, status, history, data,
     } = nextProps;
 
+    let token;
     switch (status) {
       case 'success':
-        toast.success('Successfully Registered!');
+        toast.success('Successfully Logged in!');
         history.push('/');
+        token = data.data.token;
+        window.localStorage.setItem('token', token);
         this.setState({ isLoading: false });
         break;
       case 'error':
@@ -55,20 +56,18 @@ export class Signup extends Component {
     this.setState({ isLoading: true });
 
     const {
-      email, first_name, last_name, password,
+      email, password,
     } = state;
 
-    await props.signupAction({
-      email, first_name, last_name, password,
+    await props.signinAction({
+      email, password,
     });
-
-    // this.setState({ isLoading: false });
   };
 
   render() {
     const { state } = this;
     const {
-      email, first_name, last_name, password, isLoading,
+      email, password, isLoading,
     } = state;
 
     return (
@@ -87,7 +86,7 @@ export class Signup extends Component {
               <div className="container">
                 <div className="main-content">
                     <div className="form-box">
-                      <h1>sign up</h1>
+                      <h1>sign in</h1>
                       <img src={avatarMan} alt="" />
                       <hr />
                       <form action="" id="login-form" onSubmit={this.handleSubmit}>
@@ -95,22 +94,16 @@ export class Signup extends Component {
                           <div className="formgroup" id="email-form">
                             <input data-test="email" type="email" id="email" name="email" required placeholder="email" value={email} onChange={this.handleChange} />
                           </div>
-                          <div className="formgroup" id="fname-form">
-                            <input data-test="first_name" type="text" id="fname" name="first_name" required placeholder="first name" maxLength="20" pattern="[A-Za-z]{2,}" value={first_name} onChange={this.handleChange} />
-                          </div>
-                          <div className="formgroup" id="lname-form">
-                            <input data-test="last_name" type="text" id="lname" name="last_name" required placeholder="last name" maxLength="20" pattern="[A-Za-z]{2,}" value={last_name} onChange={this.handleChange} />
-                          </div>
 
                           <div className="formgroup" id="password-form">
                             <input data-test="password" type="password" id="password" name="password" required placeholder="password" minLength="6" title="Six or more chareacters!" value={password} onChange={this.handleChange} />
                           </div>
 
-                          <Button data-test="submitButton" type="submit" className="form-button">{isLoading ? <i style={{ fontSize: '20px' }} className="fas fa-spinner fa-pulse" /> : 'signup'}</Button>
+                          <Button data-test="submitButton" type="submit" className="form-button">{isLoading ? <i style={{ fontSize: '20px' }} className="fas fa-spinner fa-pulse" /> : 'signin'}</Button>
                           <div className="form-bottom">
-                            Already have an account?
+                            Not yet registered?
                             {' '}
-                            <Link to="/signin">Sign In!</Link>
+                            <Link to="/signup">Sign Up!</Link>
                           </div>
                         </div>
                       </form>
@@ -127,8 +120,8 @@ export class Signup extends Component {
   }
 }
 
-Signup.propTypes = {
-  signupAction: PropTypes.func,
+Signin.propTypes = {
+  signinAction: PropTypes.func,
   history: PropTypes.object,
   data: PropTypes.any,
   dataError: PropTypes.any,
@@ -141,4 +134,4 @@ export const mapStateToProps = (state) => ({
   status: state.authReducer.status,
 });
 
-export default connect(mapStateToProps, { signupAction })(Signup);
+export default connect(mapStateToProps, { signinAction })(Signin);
