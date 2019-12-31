@@ -2,7 +2,6 @@ import {
   SIGNUP_SUCCESS, SIGNUP_ERROR, SIGNIN_SUCCESS, SIGNIN_ERROR,
 } from './types';
 import backendCall from '../../helpers/backendCall';
-// import 'regenerator-runtime';
 
 const authType = (type, payload) => ({
   type,

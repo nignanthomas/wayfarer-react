@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Signup } from '../components/Signup';
-import thunk from 'redux-thunk';
 import { mapStateToProps } from '../components/Signup';
 import store from '../redux/store';
 
